@@ -1,0 +1,36 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+.smartomcat/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Build & Compiled
+target/
+*.class
+*.jar
+*.war
+
+# Uploads (sensitive data)
+C:\sistem-pelaporan-uploads
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Temp files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Database
+*.db
+*.sqlite
