@@ -1,7 +1,7 @@
 # IntelliJ IDEA
 .idea/
 *.iml
-.smartomcat/
+.smarttomcat/
 
 # Eclipse
 .classpath
@@ -15,7 +15,8 @@ target/
 *.war
 
 # Uploads (sensitive data)
-C:\sistem-pelaporan-uploads
+UPLOADS_DIR/
+sistem-pelaporan-uploads/
 
 # OS
 .DS_Store
