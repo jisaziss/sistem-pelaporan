@@ -12,7 +12,7 @@ public class LaporanService {
     private PesanDAO pesanDAO = new PesanDAO();
 
     public boolean buatLaporan(Pelapor p, String judul, String kategori, String kronologi, String lokasi, String tgl, boolean sembunyi) {
-        Laporan l = new Laporan(p.getId(), judul, kategori, kronologi, lokasi, tgl, sembunyi);
+        Laporan l = new Laporan(p.getId(), "", judul, kategori, kronologi, lokasi, tgl, sembunyi);
         return laporanDAO.createLaporan(l);
     }
 

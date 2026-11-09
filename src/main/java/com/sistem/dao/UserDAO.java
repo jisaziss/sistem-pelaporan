@@ -56,9 +56,9 @@ public class UserDAO {
         }
     }
 
-    public boolean registerPelapor(String username, String password, String nama, String nim, String prodi) {
+    public boolean registerPelapor(String username, String password, String nama, String nim) {
         String checkSql = "SELECT id FROM users WHERE username = ?";
-        String insertSql = "INSERT INTO users (username, password_hash, nama, role, nim_nip, unit_prodi) VALUES (?, ?, ?, 'PELAPOR', ?, ?)";
+        String insertSql = "INSERT INTO users (username, password_hash, nama, role, nim_nip) VALUES (?, ?, ?, 'PELAPOR', ?)";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement checkStmt = conn.prepareStatement(checkSql);
@@ -77,7 +77,6 @@ public class UserDAO {
             insertStmt.setString(2, hash);
             insertStmt.setString(3, nama);
             insertStmt.setString(4, nim);
-            insertStmt.setString(5, prodi);
             
             int affectedRows = insertStmt.executeUpdate();
             return affectedRows > 0;

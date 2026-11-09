@@ -1,26 +1,31 @@
 package com.sistem.dao;
 
 import com.sistem.model.Laporan;
+import com.sistem.model.BuktiLaporan;
 import com.sistem.util.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LaporanDAO {
+    private BuktiLaporanDAO buktiDAO = new BuktiLaporanDAO();
+
     public boolean createLaporan(Laporan laporan) {
-        String sql = "INSERT INTO laporan (pelapor_id, judul, kategori, kronologi, lokasi, tanggal_kejadian, sembunyikan_identitas, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO laporan (pelapor_id, nomor_laporan, judul, kategori, kronologi, lokasi, tanggal_kejadian, sembunyikan_identitas, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             
+            String nomorLaporan = generateNomorLaporan();
             pstmt.setInt(1, laporan.getPelaporId());
-            pstmt.setString(2, laporan.getJudul());
-            pstmt.setString(3, laporan.getKategori());
-            pstmt.setString(4, laporan.getKronologi());
-            pstmt.setString(5, laporan.getLokasi());
-            pstmt.setString(6, laporan.getTanggalKejadian());
-            pstmt.setBoolean(7, laporan.isSembunyikanIdentitas());
-            pstmt.setString(8, laporan.getStatus());
+            pstmt.setString(2, nomorLaporan);
+            pstmt.setString(3, laporan.getJudul());
+            pstmt.setString(4, laporan.getKategori());
+            pstmt.setString(5, laporan.getKronologi());
+            pstmt.setString(6, laporan.getLokasi());
+            pstmt.setString(7, laporan.getTanggalKejadian());
+            pstmt.setBoolean(8, laporan.isSembunyikanIdentitas());
+            pstmt.setString(9, laporan.getStatus());
             
             int affectedRows = pstmt.executeUpdate();
             
@@ -28,6 +33,7 @@ public class LaporanDAO {
                 try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         laporan.setId(generatedKeys.getInt(1));
+                        laporan.setNomorLaporan(nomorLaporan);
                     }
                 }
             }
@@ -37,6 +43,11 @@ public class LaporanDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private String generateNomorLaporan() {
+        String prefix = "LP-" + System.currentTimeMillis();
+        return prefix;
     }
 
     private static final String BASE_SELECT =
@@ -198,6 +209,7 @@ public class LaporanDAO {
         Laporan laporan = new Laporan();
         laporan.setId(rs.getInt("id"));
         laporan.setPelaporId(rs.getInt("pelapor_id"));
+        laporan.setNomorLaporan(rs.getString("nomor_laporan"));
         laporan.setJudul(rs.getString("judul"));
         laporan.setKategori(rs.getString("kategori"));
         laporan.setKronologi(rs.getString("kronologi"));
@@ -215,6 +227,10 @@ public class LaporanDAO {
         laporan.setPetugasNama(rs.getString("petugas_nama"));
         laporan.setCreatedAt(rs.getTimestamp("created_at"));
         laporan.setUpdatedAt(rs.getTimestamp("updated_at"));
+        
+        // Load bukti files
+        laporan.setBuktiList(buktiDAO.getBuktiByLaporanId(laporan.getId()));
+        
         return laporan;
     }
 }

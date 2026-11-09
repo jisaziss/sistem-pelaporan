@@ -1,71 +1,74 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.sistem.model.*, com.sistem.util.HtmlUtil, java.util.List" %>
-<% User user = (User) session.getAttribute("user"); %>
-<% Pelapor pelapor = (Pelapor) user; %>
+<% User user = (User) session.getAttribute("user"); 
+   Pelapor pelapor = (Pelapor) user; %>
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard Pelapor</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <title>Dashboard Pelapor - PPKS UNSOED</title>
+    <jsp:include page="includes/head.jsp" />
 </head>
-<body>
-    <div class="navbar">
-        <div class="container">
-            <div class="navbar-brand">PPKS</div>
-            <div class="navbar-menu">
-                <a href="${pageContext.request.contextPath}/pelapor/dashboard" class="nav-link">Dashboard</a>
-                <span class="nav-text">Hai, <%= HtmlUtil.escape(pelapor.getNama()) %></span>
-                <a href="${pageContext.request.contextPath}/logout" class="nav-link nav-btn">Keluar</a>
+<body class="bg-gray-50 min-h-screen">
+    <jsp:include page="includes/navbar.jsp" />
+
+    <main class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+            <p class="text-gray-600">Halo, <%= HtmlUtil.escape(pelapor.getNama()) %>. Selamat datang kembali.</p>
+        </header>
+
+        <section class="bg-white rounded-2xl shadow-sm p-6 mb-8 border border-gray-100 flex items-center justify-between">
+            <div>
+                <h2 class="text-xl font-bold mb-2">Ingin membuat laporan baru?</h2>
+                <p class="text-gray-600">Gunakan tombol berikut untuk memulai proses pelaporan secara aman.</p>
             </div>
-        </div>
-    </div>
+            <a href="${pageContext.request.contextPath}/pelapor/laporan/baru" 
+               class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition">
+                Buat Laporan Baru
+            </a>
+        </section>
 
-    <div class="container dashboard-container">
-        <h1>Dashboard Pelapor</h1>
-        
-        <div class="dashboard-actions">
-            <a href="${pageContext.request.contextPath}/pelapor/laporan/baru" class="btn btn-primary">Buat Laporan Baru</a>
-        </div>
-
-        <h2>Laporan Saya</h2>
-        
-        <% List<Laporan> laporanList = (List<Laporan>) request.getAttribute("laporanList"); %>
-        <% if (laporanList == null || laporanList.isEmpty()) { %>
-            <p class="empty-state">Anda belum memiliki laporan. Klik tombol di atas untuk membuat laporan baru.</p>
-        <% } else { %>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Judul</th>
-                            <th>Kategori</th>
-                            <th>Status</th>
-                            <th>Tanggal Dibuat</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% for (Laporan l : laporanList) { %>
-                        <tr>
-                            <td><%= HtmlUtil.escape(l.getJudul()) %></td>
-                            <td><%= HtmlUtil.escape(l.getKategori()) %></td>
-                            <td><span class="badge badge-<%= l.getStatus().toLowerCase() %>"><%= l.getStatusDisplay() %></span></td>
-                            <td><%= l.getCreatedAt() %></td>
-                            <td>
-                                <a href="${pageContext.request.contextPath}/laporan/detail?id=<%= l.getId() %>" class="btn btn-sm">Detail</a>
-                            </td>
-                        </tr>
-                        <% } %>
-                    </tbody>
-                </table>
-            </div>
-        <% } %>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Sistem Pelaporan PPKS.</p>
-    </footer>
+        <section>
+            <h2 class="text-2xl font-bold mb-6">Laporan Saya</h2>
+            <% List<Laporan> laporanList = (List<Laporan>) request.getAttribute("laporanList"); %>
+            <% if (laporanList == null || laporanList.isEmpty()) { %>
+                <div class="text-center py-16 bg-white rounded-2xl border border-dashed border-gray-300">
+                    <p class="text-gray-500">Anda belum memiliki laporan.</p>
+                </div>
+            <% } else { %>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <table class="w-full text-left">
+                        <thead class="bg-gray-50 text-gray-600 uppercase text-xs font-bold tracking-wider">
+                            <tr>
+                                <th class="px-6 py-4">Judul</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4">Dibuat</th>
+                                <th class="px-6 py-4 text-right">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <% for (Laporan l : laporanList) { %>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4 font-medium"><%= HtmlUtil.escape(l.getJudul()) %></td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-block px-3 py-1 rounded-full text-xs font-bold
+                                        <%= l.getStatus().equals("Selesai") ? "bg-green-100 text-green-700" : 
+                                            l.getStatus().contains("Penanganan") ? "bg-blue-100 text-blue-700" : "bg-yellow-100 text-yellow-700" %>">
+                                        <%= l.getStatusDisplay() %>
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-gray-600"><%= l.getCreatedAt() %></td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="${pageContext.request.contextPath}/laporan/detail?id=<%= l.getId() %>" 
+                                       class="text-blue-600 font-bold hover:underline">Detail</a>
+                                </td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+        </section>
+    </main>
 </body>
 </html>

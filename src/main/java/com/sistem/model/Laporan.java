@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class Laporan {
     private int id;
     private int pelaporId;
+    private String nomorLaporan;
     private String judul;
     private String kategori;
     private String kronologi;
@@ -17,12 +18,14 @@ public class Laporan {
     private Timestamp updatedAt;
     private String pelaporNama;
     private String petugasNama;
+    private java.util.List<BuktiLaporan> buktiList;
 
     public Laporan() {}
 
-    public Laporan(int pelaporId, String judul, String kategori, String kronologi, 
+    public Laporan(int pelaporId, String nomorLaporan, String judul, String kategori, String kronologi, 
                    String lokasi, String tanggalKejadian, boolean sembunyikanIdentitas) {
         this.pelaporId = pelaporId;
+        this.nomorLaporan = nomorLaporan;
         this.judul = judul;
         this.kategori = kategori;
         this.kronologi = kronologi;
@@ -31,6 +34,11 @@ public class Laporan {
         this.sembunyikanIdentitas = sembunyikanIdentitas;
         this.status = "MENUNGGU_VERIFIKASI";
     }
+
+    public String getNomorLaporan() { return nomorLaporan; }
+    public void setNomorLaporan(String nomorLaporan) { this.nomorLaporan = nomorLaporan; }
+    public java.util.List<BuktiLaporan> getBuktiList() { return buktiList; }
+    public void setBuktiList(java.util.List<BuktiLaporan> buktiList) { this.buktiList = buktiList; }
 
     public int getId() {
         return id;

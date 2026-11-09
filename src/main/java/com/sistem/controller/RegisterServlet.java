@@ -23,7 +23,6 @@ public class RegisterServlet extends HttpServlet {
         String password = req.getParameter("password");
         String nama = req.getParameter("nama");
         String nim = req.getParameter("nim");
-        String prodi = req.getParameter("prodi");
 
         if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty() || nama == null || nama.trim().isEmpty()) {
             req.setAttribute("error", "Semua field wajib diisi.");
@@ -31,7 +30,7 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        boolean success = userDAO.registerPelapor(username, password, nama, nim, prodi);
+        boolean success = userDAO.registerPelapor(username, password, nama, nim);
         if (success) {
             resp.sendRedirect(req.getContextPath() + "/login?registered=success");
         } else {

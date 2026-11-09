@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS laporan (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pelapor_id INT NOT NULL,
+    nomor_laporan VARCHAR(50) NOT NULL UNIQUE,
     judul VARCHAR(255) NOT NULL,
     kategori VARCHAR(100) NOT NULL,
     kronologi TEXT NOT NULL,
@@ -27,6 +28,15 @@ CREATE TABLE IF NOT EXISTS laporan (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (pelapor_id) REFERENCES users(id),
     FOREIGN KEY (petugas_id) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS bukti_laporan (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    laporan_id INT NOT NULL,
+    jenis ENUM('FOTO', 'VIDEO') NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (laporan_id) REFERENCES laporan(id)
 );
 
 CREATE TABLE IF NOT EXISTS tindak_lanjut (
