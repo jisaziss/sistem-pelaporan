@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.sistem.model.*, com.sistem.util.HtmlUtil, java.util.List" %>
-<% User user = (User) session.getAttribute("user"); 
+<% User user = (User) session.getAttribute("user");
    Petugas petugas = (Petugas) user; %>
 <!DOCTYPE html>
 <html lang="id">
@@ -44,7 +44,7 @@
                                 <td class="px-6 py-4 font-medium"><%= HtmlUtil.escape(l.getJudul()) %></td>
                                 <td class="px-6 py-4">
                                     <span class="inline-block px-3 py-1 rounded-full text-xs font-bold
-                                        <%= l.getStatus().equals("Selesai") ? "bg-green-100 text-green-700" : 
+                                        <%= l.getStatus().equals("Selesai") ? "bg-green-100 text-green-700" :
                                             l.getStatus().contains("Penanganan") ? "bg-blue-100 text-blue-700" : "bg-yellow-100 text-yellow-700" %>">
                                         <%= l.getStatusDisplay() %>
                                     </span>
@@ -54,7 +54,7 @@
                                 </td>
                                 <td class="px-6 py-4 text-gray-600"><%= l.getCreatedAt() %></td>
                                 <td class="px-6 py-4 text-right">
-                                    <a href="${pageContext.request.contextPath}/laporan/detail?id=<%= l.getId() %>" 
+                                    <a href="${pageContext.request.contextPath}/laporan/detail?id=<%= l.getId() %>"
                                        class="bg-blue-50 text-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-100 transition">Detail</a>
                                 </td>
                             </tr>

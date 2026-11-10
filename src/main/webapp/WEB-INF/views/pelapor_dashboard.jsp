@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.sistem.model.*, com.sistem.util.HtmlUtil, java.util.List" %>
-<% User user = (User) session.getAttribute("user"); 
+<% User user = (User) session.getAttribute("user");
    Pelapor pelapor = (Pelapor) user; %>
 <!DOCTYPE html>
 <html lang="id">
@@ -22,7 +22,7 @@
                 <h2 class="text-xl font-bold mb-2">Ingin membuat laporan baru?</h2>
                 <p class="text-gray-600">Gunakan tombol berikut untuk memulai proses pelaporan secara aman.</p>
             </div>
-            <a href="${pageContext.request.contextPath}/pelapor/laporan/baru" 
+            <a href="${pageContext.request.contextPath}/pelapor/laporan/baru"
                class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition">
                 Buat Laporan Baru
             </a>
@@ -52,14 +52,14 @@
                                 <td class="px-6 py-4 font-medium"><%= HtmlUtil.escape(l.getJudul()) %></td>
                                 <td class="px-6 py-4">
                                     <span class="inline-block px-3 py-1 rounded-full text-xs font-bold
-                                        <%= l.getStatus().equals("Selesai") ? "bg-green-100 text-green-700" : 
+                                        <%= l.getStatus().equals("Selesai") ? "bg-green-100 text-green-700" :
                                             l.getStatus().contains("Penanganan") ? "bg-blue-100 text-blue-700" : "bg-yellow-100 text-yellow-700" %>">
                                         <%= l.getStatusDisplay() %>
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 text-gray-600"><%= l.getCreatedAt() %></td>
                                 <td class="px-6 py-4 text-right">
-                                    <a href="${pageContext.request.contextPath}/laporan/detail?id=<%= l.getId() %>" 
+                                    <a href="${pageContext.request.contextPath}/laporan/detail?id=<%= l.getId() %>"
                                        class="text-blue-600 font-bold hover:underline">Detail</a>
                                 </td>
                             </tr>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.sistem.model.*" %>
-<% User user = (User) session.getAttribute("user"); 
+<% User user = (User) session.getAttribute("user");
    Pelapor pelapor = (Pelapor) user; %>
 <!DOCTYPE html>
 <html lang="id">
@@ -19,7 +19,7 @@
 
         <form method="post" action="${pageContext.request.contextPath}/pelapor/laporan/baru" enctype="multipart/form-data"
               class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-6">
-            
+
             <div>
                 <label for="judul" class="block text-sm font-bold text-gray-700 mb-2">Judul Laporan *</label>
                 <input type="text" id="judul" name="judul" required
@@ -80,11 +80,11 @@
             </div>
 
             <div class="flex gap-4 pt-4">
-                <a href="${pageContext.request.contextPath}/pelapor/dashboard" 
+                <a href="${pageContext.request.contextPath}/pelapor/dashboard"
                    class="flex-1 text-center bg-gray-100 text-gray-700 px-6 py-3 rounded-xl font-bold hover:bg-gray-200 transition">
                     Batal
                 </a>
-                <button type="submit" 
+                <button type="submit"
                         class="flex-1 bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg">
                     Kirim Laporan
                 </button>

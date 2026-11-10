@@ -9,7 +9,7 @@
             <a href="${pageContext.request.contextPath}/" class="flex items-center space-x-3">
                 <img src="${pageContext.request.contextPath}/images/logoPPKS.png" alt="Logo PPKS UNSOED" class="h-12 w-auto mix-blend-multiply">
             </a>
-            
+
             <div class="flex items-center space-x-4 font-bold">
                 <% if (currentUser != null) { %>
                     <span class="text-sm bg-white/50 px-3 py-1 rounded-full text-[#FF5516]">

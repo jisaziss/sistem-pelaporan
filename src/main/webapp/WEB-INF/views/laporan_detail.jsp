@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.sistem.model.*, java.util.List, com.sistem.util.HtmlUtil" %>
-<% User user = (User) session.getAttribute("user"); 
+<% User user = (User) session.getAttribute("user");
    Laporan laporan = (Laporan) request.getAttribute("laporan");
    List<TindakLanjut> tindakLanjutList = (List<TindakLanjut>) request.getAttribute("tindakLanjutList");
    List<Pesan> pesanList = (List<Pesan>) request.getAttribute("pesanList");
@@ -33,7 +33,7 @@
                 <div class="flex items-center">
                     <span class="w-24 text-gray-600">Status:</span>
                     <span class="px-3 py-1 rounded-full text-xs font-bold
-                        <%= laporan.getStatus().equals("SELESAI") ? "bg-green-100 text-green-700" : 
+                        <%= laporan.getStatus().equals("SELESAI") ? "bg-green-100 text-green-700" :
                             laporan.getStatus().contains("PENANGANAN") ? "bg-blue-100 text-blue-700" : "bg-yellow-100 text-yellow-700" %>">
                         <%= laporan.getStatusDisplay() %>
                     </span>
@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <% if (laporan.getLokasi() != null && !laporan.getLokasi().isEmpty() || 
+            <% if (laporan.getLokasi() != null && !laporan.getLokasi().isEmpty() ||
                    laporan.getTanggalKejadian() != null && !laporan.getTanggalKejadian().isEmpty()) { %>
             <div class="border-t border-gray-200 pt-4 mt-4">
                 <div class="grid md:grid-cols-2 gap-4 text-sm">
@@ -94,7 +94,7 @@
                     <% for (BuktiLaporan bukti : laporan.getBuktiList()) { %>
                     <div class="rounded-xl border border-gray-200 overflow-hidden">
                         <% if ("FOTO".equals(bukti.getJenis())) { %>
-                            <img src="${pageContext.request.contextPath}/bukti/<%= bukti.getFilePath() %>" 
+                            <img src="${pageContext.request.contextPath}/bukti/<%= bukti.getFilePath() %>"
                                  alt="Bukti Foto" class="w-full h-48 object-cover">
                         <% } else if ("VIDEO".equals(bukti.getJenis())) { %>
                             <video controls class="w-full h-48 bg-black">
@@ -136,11 +136,11 @@
         <% if (user instanceof Petugas && laporan.getPetugasId() != null && laporan.getPetugasId() == ((Petugas) user).getId()) { %>
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
             <h2 class="text-lg font-bold text-gray-900 mb-4">Pembaruan Status & Tindak Lanjut</h2>
-            
+
             <form method="post" action="${pageContext.request.contextPath}/petugas/laporan/aksi" class="space-y-4 mb-6">
                 <input type="hidden" name="id" value="<%= laporan.getId() %>">
                 <input type="hidden" name="aksi" value="update_status">
-                
+
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Ubah Status</label>
                     <select name="status" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition outline-none">
@@ -150,7 +150,7 @@
                         <option value="SELESAI" <%= "SELESAI".equals(laporan.getStatus()) ? "selected" : "" %>>Selesai</option>
                     </select>
                 </div>
-                
+
                 <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg">
                     Perbarui Status
                 </button>
@@ -159,13 +159,13 @@
             <form method="post" action="${pageContext.request.contextPath}/petugas/laporan/aksi">
                 <input type="hidden" name="id" value="<%= laporan.getId() %>">
                 <input type="hidden" name="aksi" value="tambah_tindak_lanjut">
-                
+
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Catatan Tindak Lanjut</label>
                     <textarea name="catatan" rows="4" placeholder="Tulis catatan tindak lanjut..."
                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition outline-none"></textarea>
                 </div>
-                
+
                 <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg mt-4">
                     Simpan Catatan
                 </button>
@@ -194,7 +194,7 @@
         <!-- Chat Section -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <h2 class="text-lg font-bold text-gray-900 mb-4">Pesan & Chat</h2>
-            
+
             <% if (pesanList == null || pesanList.isEmpty()) { %>
                 <div class="text-center py-8 text-gray-500">Belum ada pesan.</div>
             <% } else { %>
