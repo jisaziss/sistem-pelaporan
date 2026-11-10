@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.sistem.model.User, com.sistem.model.Pelapor, com.sistem.model.Petugas" %>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -68,6 +69,11 @@
 
     <main class="flex-grow">
 
+        <%
+            // Ambil session user yang sedang aktif
+            User currentUser = (User) session.getAttribute("user");
+        %>
+
         <!-- Hero -->
         <section class="py-14 md:py-20 px-4">
             <div class="container mx-auto text-center max-w-4xl">
@@ -85,14 +91,29 @@
                     <span class="text-[#4F7A63] font-semibold">terpercaya</span> untuk melaporkan kasus kekerasan seksual di lingkungan Universitas Jenderal Soedirman.
                 </p>
                 <div class="anim-up delay-3 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-                    <a href="${pageContext.request.contextPath}/register"
-                       class="bg-[#5C7FA8] text-white px-8 py-3.5 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-[#5E8C73] hover:-translate-y-0.5 transition shadow-[0_8px_18px_rgba(92,127,168,.28)]">
-                        Lapor Sekarang
-                    </a>
-                    <a href="${pageContext.request.contextPath}/login"
-                       class="bg-white text-[#2F4A3E] border-2 border-[#E9C24A] px-8 py-3.5 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-[#FFF9E3] hover:border-[#F6D365] hover:-translate-y-0.5 transition shadow-[0_8px_18px_rgba(246,211,101,.35)]">
-                        Masuk Ke Akun
-                    </a>
+                    <% if (currentUser != null) { %>
+                        <!-- Jika user sudah login -->
+                        <% if (currentUser instanceof Pelapor) { %>
+                            <a href="${pageContext.request.contextPath}/pelapor/laporan/baru"
+                               class="bg-[#5C7FA8] text-white px-8 py-3.5 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-[#5E8C73] hover:-translate-y-0.5 transition shadow-[0_8px_18px_rgba(92,127,168,.28)]">
+                                Lapor Sekarang
+                            </a>
+                        <% } %>
+                        <a href="${pageContext.request.contextPath}/<%= (currentUser instanceof Petugas) ? "petugas/dashboard" : "pelapor/dashboard" %>"
+                           class="bg-white text-[#2F4A3E] border-2 border-[#E9C24A] px-8 py-3.5 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-[#FFF9E3] hover:border-[#F6D365] hover:-translate-y-0.5 transition shadow-[0_8px_18px_rgba(246,211,101,.35)]">
+                            Buka Dashboard
+                        </a>
+                    <% } else { %>
+                        <!-- Jika user belum login -->
+                        <a href="${pageContext.request.contextPath}/register"
+                           class="bg-[#5C7FA8] text-white px-8 py-3.5 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-[#5E8C73] hover:-translate-y-0.5 transition shadow-[0_8px_18px_rgba(92,127,168,.28)]">
+                            Lapor Sekarang
+                        </a>
+                        <a href="${pageContext.request.contextPath}/login"
+                           class="bg-white text-[#2F4A3E] border-2 border-[#E9C24A] px-8 py-3.5 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-[#FFF9E3] hover:border-[#F6D365] hover:-translate-y-0.5 transition shadow-[0_8px_18px_rgba(246,211,101,.35)]">
+                            Masuk Ke Akun
+                        </a>
+                    <% } %>
                 </div>
             </div>
         </section>
