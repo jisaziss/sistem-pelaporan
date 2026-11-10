@@ -14,13 +14,6 @@
             <a href="${pageContext.request.contextPath}/" class="flex items-center gap-3 min-w-0">
                 <img src="${pageContext.request.contextPath}/images/logoPPKS.png"
                      alt="Logo PPKS UNSOED" class="h-11 sm:h-12 w-auto object-contain">
-                <span class="hidden sm:block min-w-0">
-                    <span class="nav-brand block text-lg sm:text-xl font-extrabold uppercase leading-tight">
-                        <span class="text-[#4F7A63]">PPKS</span> <span class="text-[#C99A1E]">UNSOED</span>
-                    </span>
-                    <span class="nav-brand block text-[11px] sm:text-xs font-semibold text-[#6B7F74] tracking-[.2em] uppercase">Layanan Pelaporan</span>
-                </span>
-            </a>
 
             <div class="flex items-center gap-2 sm:gap-4 text-[15px] font-semibold tracking-wide">
                 <% if (currentUser != null) { %>
