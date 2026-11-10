@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#174F38">
+<meta name="theme-color" content="#FFFFFF">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/logoPPKS.png">
 <script>
     tailwind = window.tailwind || {};
     tailwind.config = {
@@ -12,20 +13,21 @@
             extend: {
                 colors: {
                     ppks: {
-                        forest: '#174F38',
-                        green: '#26734E',
-                        gold: '#D5AD52',
-                        cream: '#F7F7F2',
-                        ink: '#26352D'
+                        forest: '#5E8C73',
+                        green: '#7FA892',
+                        gold: '#F6D365',
+                        goldtext: '#C99A1E',
+                        cream: '#F7FAF8',
+                        ink: '#2F4A3E'
                     },
-                    primary: '#174F38',
-                    secondary: '#D5AD52',
-                    accent: '#26734E',
-                    success: '#26734E'
+                    primary: '#5C7FA8',
+                    secondary: '#F6D365',
+                    accent: '#7FA892',
+                    success: '#5FA283'
                 },
                 fontFamily: {
-                    sans: ['DM Sans', 'sans-serif'],
-                    display: ['Playfair Display', 'serif']
+                    sans: ['Barlow', 'sans-serif'],
+                    display: ['Archivo', 'sans-serif']
                 }
             }
         }
@@ -34,49 +36,66 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
     :root {
-        --ppks-forest: #174F38;
-        --ppks-green: #26734E;
-        --ppks-gold: #D5AD52;
-        --ppks-cream: #F7F7F2;
-        --ppks-ink: #26352D;
-        --ppks-muted: #68756D;
-        --ppks-line: #E5E9E2;
+        --ppks-forest: #5E8C73;
+        --ppks-green: #7FA892;
+        --ppks-gold: #F6D365;
+        --ppks-cream: #F7FAF8;
+        --ppks-ink: #2F4A3E;
+        --ppks-muted: #5F7568;
+        --ppks-line: #D5E3DA;
     }
     * { box-sizing: border-box; }
-    body { font-family: 'DM Sans', sans-serif; color: var(--ppks-ink); }
+    body { font-family: 'Barlow', sans-serif; color: var(--ppks-ink); }
+    h1, h2, h3, .font-display {
+        font-family: 'Archivo', sans-serif;
+        letter-spacing: -.02em;
+    }
+
+    /* latar halaman: putih polos */
     .page-shell {
-        background:
-            radial-gradient(circle at 90% 0%, rgba(213,173,82,.10), transparent 26rem),
-            var(--ppks-cream);
+        background: #FFFFFF;
+        background-color: #FFFFFF;
     }
-    h1, h2, h3 { letter-spacing: -.025em; }
-    .font-display { font-family: 'Playfair Display', serif; }
+
+    /* teks gradasi hijau -> emas (dipakai di judul) */
+    .text-hijau-kuning {
+        background: linear-gradient(90deg, #4F7A63 0%, #C99A1E 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+    }
+
     .btn-primary {
-        background: var(--ppks-forest); color: #fff;
-        box-shadow: 0 8px 18px rgba(23,79,56,.13);
-        transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+        background: #5C7FA8; color: #fff;
+        box-shadow: 0 8px 18px rgba(92,127,168,.25);
+        transition: background .25s ease, transform .2s ease, box-shadow .25s ease;
     }
-    .btn-primary:hover { background: #123D2C; transform: translateY(-1px); }
+    .btn-primary:hover {
+        background: #5E8C73; transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(94,140,115,.3);
+    }
     .btn-secondary {
-        background: #F3EBD8; color: var(--ppks-forest);
-        border: 1px solid #E5D5AF;
+        background: #FFF9E3; color: var(--ppks-forest);
+        border: 1px solid #F6E3A3; transition: background .25s ease;
     }
-    .badge { display:inline-flex; align-items:center; padding:.3rem .75rem; font-size:.75rem; font-weight:700; border-radius:999px; }
+    .btn-secondary:hover { background: #FBEFC0; }
+
     .card {
         background:#fff; border:1px solid var(--ppks-line); border-radius:1rem;
-        box-shadow:0 8px 24px rgba(31,55,41,.045);
+        box-shadow:0 6px 20px rgba(47,74,62,.07);
     }
     input:not([type=checkbox]):not([type=radio]):not([type=file]),
     select, textarea {
-        border-color:#D8DED7 !important;
-        border-radius:.75rem !important;
+        border-color:#C9DAD0 !important;
+        border-radius:.6rem !important;
         background:#fff;
         transition:border-color .2s ease, box-shadow .2s ease;
     }
     input:focus, select:focus, textarea:focus {
         outline:none;
         border-color:var(--ppks-green) !important;
-        box-shadow:0 0 0 3px rgba(38,115,78,.12) !important;
+        box-shadow:0 0 0 3px rgba(127,168,146,.2) !important;
     }
     button, a { -webkit-tap-highlight-color: transparent; }
     table { border-collapse:separate; border-spacing:0; }
