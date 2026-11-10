@@ -45,6 +45,7 @@
         --ppks-line: #D5E3DA;
     }
     * { box-sizing: border-box; }
+
     body { font-family: 'Barlow', sans-serif; color: var(--ppks-ink); }
     h1, h2, h3, .font-display {
         font-family: 'Archivo', sans-serif;

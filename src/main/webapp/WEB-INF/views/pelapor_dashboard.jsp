@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.sistem.model.*, com.sistem.util.HtmlUtil, java.util.List" %>
-<% User user = (User) session.getAttribute("user"); 
+<% User user = (User) session.getAttribute("user");
    Pelapor pelapor = (Pelapor) user;
 
    List<Laporan> laporanList = (List<Laporan>) request.getAttribute("laporanList");

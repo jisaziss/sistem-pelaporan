@@ -24,7 +24,6 @@
             .js .reveal { opacity: 1; transform: none; transition: none; }
         }
 
-        /* Animasi Gelombang Garis Berjalan (Kiri ke Kanan) */
         /* Animasi Gelombang yang Lebih Tenang & Lembut */
         @keyframes waveLine {
             0% {
@@ -32,7 +31,7 @@
                 opacity: 0;
             }
             50% {
-                opacity: 0.6; /* Dibuat tidak terlalu terang agar tidak mencolok */
+                opacity: 0.6;
             }
             100% {
                 transform: translateX(100%);
@@ -42,15 +41,14 @@
 
         .wave-line-container, .wave-line-hero, .wave-line-section {
             position: relative;
-            height: 3px; /* Dibuat sedikit lebih tipis agar lebih minimalis */
+            height: 3px;
             overflow: hidden;
             border-radius: 9999px;
-            background-color: rgba(94, 140, 115, 0.08); /* Background jalur lebih samar */
+            background-color: rgba(94, 140, 115, 0.08);
         }
 
-        /* Lebar container disesuaikan */
         .wave-line-hero { width: 100%; max-width: 36rem; margin: 0 auto; }
-        .wave-line-section, .wave-line-container { width: 9rem; margin: 0 auto; } /* Untuk section judul */
+        .wave-line-section, .wave-line-container { width: 9rem; margin: 0 auto; }
 
         .wave-line-bar {
             position: absolute;
@@ -60,7 +58,7 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(246, 211, 101, 0.7), rgba(94, 140, 115, 0.7), transparent);
             border-radius: 9999px;
-            animation: waveLine 4s ease-in-out infinite; /* Durasi diperlambat menjadi 4 detik agar gerakannya lambat & menenangkan */
+            animation: waveLine 4s ease-in-out infinite;
         }
     </style>
     <script>document.documentElement.classList.add('js');</script>
@@ -77,7 +75,7 @@
                     <span class="text-[#2F4A3E]">Sistem Pelaporan</span>
                     <span class="text-hijau-kuning">PPKS</span>
                 </h1>
-                <!-- Garis Hero (Membentang penuh proporsional) -->
+                <!-- Garis Hero -->
                 <div class="anim-up delay-1 wave-line-hero max-w-lg mx-auto mb-6">
                     <div class="wave-line-bar"></div>
                 </div>
@@ -107,7 +105,6 @@
                         <span class="text-[#2F4A3E]">Mengapa Melapor</span>
                         <span class="text-[#C99A1E]">Lewat Sini?</span>
                     </h2>
-                    <!-- Garis Section (Ukurannya pas di tengah bawah judul) -->
                     <div class="wave-line-section mx-auto">
                         <div class="wave-line-bar"></div>
                     </div>

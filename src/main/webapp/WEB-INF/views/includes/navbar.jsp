@@ -14,6 +14,7 @@
             <a href="${pageContext.request.contextPath}/" class="flex items-center gap-3 min-w-0">
                 <img src="${pageContext.request.contextPath}/images/logoPPKS.png"
                      alt="Logo PPKS UNSOED" class="h-11 sm:h-12 w-auto object-contain">
+            </a>
 
             <div class="flex items-center gap-2 sm:gap-4 text-[15px] font-semibold tracking-wide">
                 <% if (currentUser != null) { %>

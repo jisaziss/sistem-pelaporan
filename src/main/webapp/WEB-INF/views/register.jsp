@@ -17,44 +17,42 @@
             .anim-up { animation: none; }
         }
 
-        /* Animasi Gelombang Garis Berjalan (Kiri ke Kanan) */
-       /* Animasi Gelombang yang Lebih Tenang & Lembut */
-       @keyframes waveLine {
-           0% {
-               transform: translateX(-100%);
-               opacity: 0;
-           }
-           50% {
-               opacity: 0.6; /* Dibuat tidak terlalu terang agar tidak mencolok */
-           }
-           100% {
-               transform: translateX(100%);
-               opacity: 0;
-           }
-       }
+        /* Animasi Gelombang yang Lebih Tenang & Lembut */
+        @keyframes waveLine {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
 
-       .wave-line-container, .wave-line-hero, .wave-line-section {
-           position: relative;
-           height: 3px; /* Dibuat sedikit lebih tipis agar lebih minimalis */
-           overflow: hidden;
-           border-radius: 9999px;
-           background-color: rgba(94, 140, 115, 0.08); /* Background jalur lebih samar */
-       }
+        .wave-line-container, .wave-line-hero, .wave-line-section {
+            position: relative;
+            height: 3px;
+            overflow: hidden;
+            border-radius: 9999px;
+            background-color: rgba(94, 140, 115, 0.08);
+        }
 
-       /* Lebar container disesuaikan */
-       .wave-line-hero { width: 100%; max-width: 36rem; margin: 0 auto; }
-       .wave-line-section, .wave-line-container { width: 9rem; margin: 0 auto; } /* Untuk section judul */
+        .wave-line-hero { width: 100%; max-width: 36rem; margin: 0 auto; }
+        .wave-line-section, .wave-line-container { width: 9rem; margin: 0 auto; }
 
-       .wave-line-bar {
-           position: absolute;
-           top: 0;
-           left: 0;
-           width: 50%;
-           height: 100%;
-           background: linear-gradient(90deg, transparent, rgba(246, 211, 101, 0.7), rgba(94, 140, 115, 0.7), transparent);
-           border-radius: 9999px;
-           animation: waveLine 4s ease-in-out infinite; /* Durasi diperlambat menjadi 4 detik agar gerakannya lambat & menenangkan */
-       }
+        .wave-line-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(246, 211, 101, 0.7), rgba(94, 140, 115, 0.7), transparent);
+            border-radius: 9999px;
+            animation: waveLine 4s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="page-shell min-h-screen flex flex-col text-[#2F4A3E]">
@@ -82,7 +80,7 @@
                 </div>
             <% } %>
 
-            <form action="${pageContext.request.contextPath}/register" method="post" class="space-y-6">
+            <form action="${pageContext.request.contextPath}/register" method="post" class="space-y-6 relative z-10">
                 <div>
                     <label for="nama" class="block text-sm font-bold text-[#2F4A3E] mb-2">Nama Lengkap</label>
                     <input type="text" id="nama" name="nama" required
