@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.sistem.model.*, java.util.List, com.sistem.util.HtmlUtil" %>
-<% User user = (User) session.getAttribute("user");
+<% User user = (User) session.getAttribute("user"); 
    Laporan laporan = (Laporan) request.getAttribute("laporan");
    List<TindakLanjut> tindakLanjutList = (List<TindakLanjut>) request.getAttribute("tindakLanjutList");
    List<Pesan> pesanList = (List<Pesan>) request.getAttribute("pesanList");
@@ -11,7 +11,7 @@
     <title>Detail Laporan - PPKS UNSOED</title>
     <jsp:include page="includes/head.jsp" />
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="page-shell min-h-screen">
     <jsp:include page="includes/navbar.jsp" />
 
     <main class="container mx-auto px-4 py-8 max-w-4xl">
@@ -28,13 +28,13 @@
                 </div>
                 <div class="flex items-center">
                     <span class="w-24 text-gray-600">Kategori:</span>
-                    <strong class="text-blue-700"><%= HtmlUtil.escape(laporan.getKategori()) %></strong>
+                    <strong class="text-green-800"><%= HtmlUtil.escape(laporan.getKategori()) %></strong>
                 </div>
                 <div class="flex items-center">
                     <span class="w-24 text-gray-600">Status:</span>
                     <span class="px-3 py-1 rounded-full text-xs font-bold
-                        <%= laporan.getStatus().equals("SELESAI") ? "bg-green-100 text-green-700" :
-                            laporan.getStatus().contains("PENANGANAN") ? "bg-blue-100 text-blue-700" : "bg-yellow-100 text-yellow-700" %>">
+                        <%= laporan.getStatus().equals("SELESAI") ? "bg-green-100 text-green-700" : 
+                            laporan.getStatus().contains("PENANGANAN") ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-700" %>">
                         <%= laporan.getStatusDisplay() %>
                     </span>
                 </div>
@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <% if (laporan.getLokasi() != null && !laporan.getLokasi().isEmpty() ||
+            <% if (laporan.getLokasi() != null && !laporan.getLokasi().isEmpty() || 
                    laporan.getTanggalKejadian() != null && !laporan.getTanggalKejadian().isEmpty()) { %>
             <div class="border-t border-gray-200 pt-4 mt-4">
                 <div class="grid md:grid-cols-2 gap-4 text-sm">
@@ -94,7 +94,7 @@
                     <% for (BuktiLaporan bukti : laporan.getBuktiList()) { %>
                     <div class="rounded-xl border border-gray-200 overflow-hidden">
                         <% if ("FOTO".equals(bukti.getJenis())) { %>
-                            <img src="${pageContext.request.contextPath}/bukti/<%= bukti.getFilePath() %>"
+                            <img src="${pageContext.request.contextPath}/bukti/<%= bukti.getFilePath() %>" 
                                  alt="Bukti Foto" class="w-full h-48 object-cover">
                         <% } else if ("VIDEO".equals(bukti.getJenis())) { %>
                             <video controls class="w-full h-48 bg-black">
@@ -112,9 +112,9 @@
         </div>
 
         <% if (laporan.getPetugasId() != null && laporan.getPetugasId() != 0) { %>
-        <div class="bg-blue-50 rounded-2xl border border-blue-100 p-6 mb-6">
-            <h2 class="text-lg font-bold text-blue-900 mb-2">Petugas Penanggung Jawab</h2>
-            <p class="text-blue-700"><strong><%= HtmlUtil.escape(laporan.getPetugasNama()) %></strong></p>
+        <div class="bg-green-50 rounded-2xl border border-green-100 p-6 mb-6">
+            <h2 class="text-lg font-bold text-green-900 mb-2">Petugas Penanggung Jawab</h2>
+            <p class="text-green-800"><strong><%= HtmlUtil.escape(laporan.getPetugasNama()) %></strong></p>
         </div>
         <% } %>
 
@@ -136,22 +136,22 @@
         <% if (user instanceof Petugas && laporan.getPetugasId() != null && laporan.getPetugasId() == ((Petugas) user).getId()) { %>
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
             <h2 class="text-lg font-bold text-gray-900 mb-4">Pembaruan Status & Tindak Lanjut</h2>
-
+            
             <form method="post" action="${pageContext.request.contextPath}/petugas/laporan/aksi" class="space-y-4 mb-6">
                 <input type="hidden" name="id" value="<%= laporan.getId() %>">
                 <input type="hidden" name="aksi" value="update_status">
-
+                
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Ubah Status</label>
-                    <select name="status" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition outline-none">
+                    <select name="status" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-600 focus:border-green-600 transition outline-none">
                         <option value="MENUNGGU_VERIFIKASI" <%= "MENUNGGU_VERIFIKASI".equals(laporan.getStatus()) ? "selected" : "" %>>Menunggu Verifikasi</option>
                         <option value="PERLU_INFORMASI" <%= "PERLU_INFORMASI".equals(laporan.getStatus()) ? "selected" : "" %>>Perlu Informasi</option>
                         <option value="DALAM_PENANGANAN" <%= "DALAM_PENANGANAN".equals(laporan.getStatus()) ? "selected" : "" %>>Dalam Penanganan</option>
                         <option value="SELESAI" <%= "SELESAI".equals(laporan.getStatus()) ? "selected" : "" %>>Selesai</option>
                     </select>
                 </div>
-
-                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg">
+                
+                <button type="submit" class="bg-green-700 text-white px-6 py-3 rounded-xl font-bold hover:bg-green-800 transition shadow-lg">
                     Perbarui Status
                 </button>
             </form>
@@ -159,14 +159,14 @@
             <form method="post" action="${pageContext.request.contextPath}/petugas/laporan/aksi">
                 <input type="hidden" name="id" value="<%= laporan.getId() %>">
                 <input type="hidden" name="aksi" value="tambah_tindak_lanjut">
-
+                
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Catatan Tindak Lanjut</label>
                     <textarea name="catatan" rows="4" placeholder="Tulis catatan tindak lanjut..."
-                              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition outline-none"></textarea>
+                              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-600 focus:border-green-600 transition outline-none"></textarea>
                 </div>
-
-                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg mt-4">
+                
+                <button type="submit" class="bg-green-700 text-white px-6 py-3 rounded-xl font-bold hover:bg-green-800 transition shadow-lg mt-4">
                     Simpan Catatan
                 </button>
             </form>
@@ -179,7 +179,7 @@
             <h2 class="text-lg font-bold text-gray-900 mb-4">Riwayat Tindak Lanjut</h2>
             <div class="space-y-4">
                 <% for (TindakLanjut tl : tindakLanjutList) { %>
-                <div class="border-l-4 border-blue-500 pl-4 py-2">
+                <div class="border-l-4 border-green-600 pl-4 py-2">
                     <div class="flex justify-between items-start mb-2">
                         <strong class="text-gray-900"><%= tl.getNamaPetugas() != null ? HtmlUtil.escape(tl.getNamaPetugas()) : "Petugas" %></strong>
                         <span class="text-gray-500 text-sm"><%= tl.getCreatedAt() %></span>
@@ -194,7 +194,7 @@
         <!-- Chat Section -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <h2 class="text-lg font-bold text-gray-900 mb-4">Pesan & Chat</h2>
-
+            
             <% if (pesanList == null || pesanList.isEmpty()) { %>
                 <div class="text-center py-8 text-gray-500">Belum ada pesan.</div>
             <% } else { %>
@@ -202,7 +202,7 @@
                 <% for (Pesan p : pesanList) { %>
                 <div class="flex items-start gap-3 <%= "PELAPOR".equals(p.getRolePengirim()) ? "flex-row" : "flex-row-reverse" %>">
                     <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0
-                        <%= "PELAPOR".equals(p.getRolePengirim()) ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700" %>">
+                        <%= "PELAPOR".equals(p.getRolePengirim()) ? "bg-green-100 text-green-800" : "bg-green-100 text-green-700" %>">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                     </div>
                     <div class="flex-grow">
@@ -222,8 +222,8 @@
             <form method="post" action="${pageContext.request.contextPath}/laporan/chat">
                 <input type="hidden" name="id" value="<%= laporan.getId() %>">
                 <textarea name="isi" rows="3" placeholder="Tulis pesan..."
-                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition outline-none mb-3"></textarea>
-                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg">
+                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-600 focus:border-green-600 transition outline-none mb-3"></textarea>
+                <button type="submit" class="bg-green-700 text-white px-6 py-3 rounded-xl font-bold hover:bg-green-800 transition shadow-lg">
                     Kirim Pesan
                 </button>
             </form>
@@ -236,7 +236,7 @@
                 } else if (user instanceof Petugas) {
             %> ${pageContext.request.contextPath}/petugas/dashboard <%
                 }
-            %>" class="text-blue-600 font-bold hover:underline">
+            %>" class="text-green-700 font-bold hover:underline">
                 ← Kembali ke Dashboard
             </a>
         </div>
