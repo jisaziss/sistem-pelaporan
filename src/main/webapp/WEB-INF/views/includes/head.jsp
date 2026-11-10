@@ -23,8 +23,11 @@
     }
 </script>
 <style type="text/tailwindcss">
+    .glass-card {
+        @apply bg-gray-900/80 backdrop-blur-lg border border-white/10 rounded-2xl p-6;
+    }
     .btn-primary {
-        @apply bg-[#FF5516] text-white hover:bg-[#e04812] shadow-sm;
+        @apply bg-[#FF5516] text-white hover:bg-[#e04812] shadow-lg shadow-[#FF5516]/30;
     }
     .btn-secondary {
         @apply bg-[#FFAA16] text-gray-900 hover:bg-[#e59913];
