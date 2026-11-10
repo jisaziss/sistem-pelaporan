@@ -1,115 +1,200 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.sistem.model.User, com.sistem.model.Pelapor, com.sistem.model.Petugas" %>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <title>Sistem Pelaporan PPKS UNSOED</title>
     <jsp:include page="includes/head.jsp" />
+
     <style>
-        .particle-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .anim-up { animation: fadeUp .7s ease both; }
+        .delay-1 { animation-delay: .1s; }
+        .delay-2 { animation-delay: .2s; }
+        .delay-3 { animation-delay: .3s; }
+
+        .js .reveal { opacity: 0; transform: translateY(18px);
+                      transition: opacity .6s ease, transform .6s ease; }
+        .js .reveal.show { opacity: 1; transform: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .anim-up { animation: none; }
+            .js .reveal { opacity: 1; transform: none; transition: none; }
+        }
+
+        /* Animasi Gelombang yang Lebih Tenang & Lembut */
+        @keyframes waveLine {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .wave-line-container, .wave-line-hero, .wave-line-section {
+            position: relative;
+            height: 3px;
             overflow: hidden;
+            border-radius: 9999px;
+            background-color: rgba(94, 140, 115, 0.08);
         }
-        .particle {
+
+        .wave-line-hero { width: 100%; max-width: 36rem; margin: 0 auto; }
+        .wave-line-section, .wave-line-container { width: 9rem; margin: 0 auto; }
+
+        .wave-line-bar {
             position: absolute;
-            background: radial-gradient(circle, rgba(255, 223, 22, 0.8) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 15s infinite ease-in-out;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
-            50% { transform: translateY(-30px) translateX(20px); opacity: 0.8; }
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(246, 211, 101, 0.7), rgba(94, 140, 115, 0.7), transparent);
+            border-radius: 9999px;
+            animation: waveLine 4s ease-in-out infinite;
         }
     </style>
+    <script>document.documentElement.classList.add('js');</script>
 </head>
-<body class="bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white min-h-screen flex flex-col">
+<body class="page-shell flex flex-col min-h-screen text-[#2F4A3E]">
     <jsp:include page="includes/navbar.jsp" />
 
-    <!-- Hero Section with Particles -->
-    <main class="flex-grow relative overflow-hidden">
-        <div class="particle-bg">
-            <div class="particle" style="width: 4px; height: 4px; left: 10%; top: 20%; animation-delay: 0s;"></div>
-            <div class="particle" style="width: 3px; height: 3px; left: 20%; top: 60%; animation-delay: 2s;"></div>
-            <div class="particle" style="width: 5px; height: 5px; left: 70%; top: 30%; animation-delay: 4s;"></div>
-            <div class="particle" style="width: 4px; height: 4px; left: 85%; top: 70%; animation-delay: 6s;"></div>
-            <div class="particle" style="width: 3px; height: 3px; left: 50%; top: 15%; animation-delay: 8s;"></div>
-            <div class="particle" style="width: 6px; height: 6px; left: 30%; top: 80%; animation-delay: 3s;"></div>
-        </div>
+    <main class="flex-grow">
 
-        <section class="relative py-32 px-4">
-            <div class="container mx-auto text-center max-w-5xl relative z-10">
-                <h1 class="text-6xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-[#FFDF16] via-[#FFAA16] to-[#FF5516] bg-clip-text text-transparent leading-tight">
-                    Sistem Pelaporan PPKS
+        <%
+            // Ambil session user yang sedang aktif
+            User currentUser = (User) session.getAttribute("user");
+        %>
+
+        <!-- Hero -->
+        <section class="py-14 md:py-20 px-4">
+            <div class="container mx-auto text-center max-w-4xl">
+                <h1 class="anim-up text-3xl sm:text-4xl md:text-6xl font-extrabold mb-5 md:mb-6 leading-tight">
+                    <span class="text-[#2F4A3E]">Sistem Pelaporan</span>
+                    <span class="text-hijau-kuning">PPKS</span>
                 </h1>
-                <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
-                    Platform aman, rahasia, dan terpercaya untuk melaporkan kasus kekerasan seksual di lingkungan Universitas Jenderal Soedirman.
+                <!-- Garis Hero -->
+                <div class="anim-up delay-1 wave-line-hero max-w-lg mx-auto mb-6">
+                    <div class="wave-line-bar"></div>
+                </div>
+                <p class="anim-up delay-2 text-base sm:text-lg md:text-2xl text-[#4F6B5D] mb-8 md:mb-10 leading-relaxed font-medium">
+                    Platform <span class="text-[#4F7A63] font-semibold">aman</span>,
+                    <span class="text-[#C99A1E] font-semibold">rahasia</span>, dan
+                    <span class="text-[#4F7A63] font-semibold">terpercaya</span> untuk melaporkan kasus kekerasan seksual di lingkungan Universitas Jenderal Soedirman.
                 </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-6">
-                    <a href="${pageContext.request.contextPath}/register" class="group relative bg-gradient-to-r from-[#FF5516] to-[#FFAA16] text-white px-10 py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-[#FF5516]/50 transition-all duration-300 transform hover:scale-105">
-                        <span class="relative z-10">Lapor Sekarang</span>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/login" class="bg-white/10 backdrop-blur-md text-white border-2 border-[#FFAA16]/50 px-10 py-4 rounded-xl font-bold text-lg hover:bg-white/20 hover:border-[#FFAA16] transition-all duration-300">
-                        Masuk Ke Akun
-                    </a>
+                <div class="anim-up delay-3 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+                    <% if (currentUser != null) { %>
+                        <!-- Jika user sudah login -->
+                        <% if (currentUser instanceof Pelapor) { %>
+                            <a href="${pageContext.request.contextPath}/pelapor/laporan/baru"
+                               class="bg-[#5C7FA8] text-white px-8 py-3.5 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-[#5E8C73] hover:-translate-y-0.5 transition shadow-[0_8px_18px_rgba(92,127,168,.28)]">
+                                Lapor Sekarang
+                            </a>
+                        <% } %>
+                        <a href="${pageContext.request.contextPath}/<%= (currentUser instanceof Petugas) ? "petugas/dashboard" : "pelapor/dashboard" %>"
+                           class="bg-white text-[#2F4A3E] border-2 border-[#E9C24A] px-8 py-3.5 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-[#FFF9E3] hover:border-[#F6D365] hover:-translate-y-0.5 transition shadow-[0_8px_18px_rgba(246,211,101,.35)]">
+                            Buka Dashboard
+                        </a>
+                    <% } else { %>
+                        <!-- Jika user belum login -->
+                        <a href="${pageContext.request.contextPath}/register"
+                           class="bg-[#5C7FA8] text-white px-8 py-3.5 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-[#5E8C73] hover:-translate-y-0.5 transition shadow-[0_8px_18px_rgba(92,127,168,.28)]">
+                            Lapor Sekarang
+                        </a>
+                        <a href="${pageContext.request.contextPath}/login"
+                           class="bg-white text-[#2F4A3E] border-2 border-[#E9C24A] px-8 py-3.5 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-[#FFF9E3] hover:border-[#F6D365] hover:-translate-y-0.5 transition shadow-[0_8px_18px_rgba(246,211,101,.35)]">
+                            Masuk Ke Akun
+                        </a>
+                    <% } %>
                 </div>
             </div>
         </section>
 
-        <!-- Features Glass Cards -->
-        <section class="relative py-20 px-4">
-            <div class="container mx-auto max-w-7xl">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-bold mb-4 text-white">Mengapa Melapor Lewat Sini?</h2>
-                    <div class="w-32 h-1 bg-gradient-to-r from-[#FFDF16] to-[#FF5516] mx-auto rounded-full"></div>
+        <!-- Features -->
+        <section class="py-14 md:py-20">
+            <div class="container mx-auto px-4">
+                <div class="reveal text-center mb-10 md:mb-16">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-4">
+                        <span class="text-[#2F4A3E]">Mengapa Melapor</span>
+                        <span class="text-[#C99A1E]">Lewat Sini?</span>
+                    </h2>
+                    <div class="wave-line-section mx-auto">
+                        <div class="wave-line-bar"></div>
+                    </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
                     <!-- Feature 1 -->
-                    <div class="glass-card hover:bg-gray-800/80 transition-all duration-300 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#FFDF16] to-[#FFAA16] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-8 h-8 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    <div class="reveal p-7 bg-white border border-[#5E8C73]/25 rounded-2xl shadow-[0_6px_20px_rgba(47,74,62,.07)] hover:shadow-lg hover:shadow-[#5C7FA8]/15 hover:-translate-y-1 transition duration-300">
+                        <div class="w-14 h-14 bg-[#DCEBE2] text-[#4F7A63] rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                         </div>
-                        <h3 class="text-xl font-bold mb-3 text-[#FFDF16]">Privasi Terjaga</h3>
-                        <p class="text-gray-400 leading-relaxed">Opsi anonim tersedia. Identitas Anda tidak akan diketahui petugas jika Anda memilih untuk menyembunyikannya.</p>
+                        <h3 class="text-lg sm:text-xl font-bold mb-3 text-[#4F7A63]">Privasi Terjaga</h3>
+                        <p class="text-sm sm:text-base text-[#6B7F74]">Opsi anonim tersedia. Identitas Anda tidak akan diketahui petugas jika Anda memilih untuk menyembunyikannya.</p>
                     </div>
 
                     <!-- Feature 2 -->
-                    <div class="glass-card hover:bg-gray-800/80 transition-all duration-300 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#FFAA16] to-[#FF5516] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                    <div class="reveal p-7 bg-white border border-[#F6D365]/70 rounded-2xl shadow-[0_6px_20px_rgba(47,74,62,.07)] hover:shadow-lg hover:shadow-[#5C7FA8]/15 hover:-translate-y-1 transition duration-300" style="transition-delay:.08s">
+                        <div class="w-14 h-14 bg-[#FBE7A1] text-[#2F4A3E] rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
                         </div>
-                        <h3 class="text-xl font-bold mb-3 text-[#FFAA16]">Lacak Status</h3>
-                        <p class="text-gray-400 leading-relaxed">Pantau perkembangan laporan Anda secara real-time dari proses verifikasi hingga penyelesaian kasus.</p>
+                        <h3 class="text-lg sm:text-xl font-bold mb-3 text-[#C99A1E]">Lacak Status</h3>
+                        <p class="text-sm sm:text-base text-[#6B7F74]">Pantau perkembangan laporan Anda secara real-time dari proses verifikasi hingga penyelesaian kasus.</p>
                     </div>
 
                     <!-- Feature 3 -->
-                    <div class="glass-card hover:bg-gray-800/80 transition-all duration-300 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#FF5516] to-red-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                    <div class="reveal p-7 bg-white border border-[#5E8C73]/25 rounded-2xl shadow-[0_6px_20px_rgba(47,74,62,.07)] hover:shadow-lg hover:shadow-[#5C7FA8]/15 hover:-translate-y-1 transition duration-300" style="transition-delay:.16s">
+                        <div class="w-14 h-14 bg-[#DCEBE2] text-[#4F7A63] rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
                         </div>
-                        <h3 class="text-xl font-bold mb-3 text-[#FF5516]">Chat Langsung</h3>
-                        <p class="text-gray-400 leading-relaxed">Berkomunikasi langsung dengan petugas melalui sistem pesan terintegrasi untuk memberikan informasi tambahan.</p>
+                        <h3 class="text-lg sm:text-xl font-bold mb-3 text-[#4F7A63]">Chat Langsung</h3>
+                        <p class="text-sm sm:text-base text-[#6B7F74]">Berkomunikasi langsung dengan petugas melalui sistem pesan terintegrasi untuk memberikan informasi tambahan.</p>
                     </div>
 
                     <!-- Feature 4 -->
-                    <div class="glass-card hover:bg-gray-800/80 transition-all duration-300 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#A5FF16] to-green-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-8 h-8 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <div class="reveal p-7 bg-white border border-[#F6D365]/70 rounded-2xl shadow-[0_6px_20px_rgba(47,74,62,.07)] hover:shadow-lg hover:shadow-[#5C7FA8]/15 hover:-translate-y-1 transition duration-300" style="transition-delay:.24s">
+                        <div class="w-14 h-14 bg-[#FBE7A1] text-[#2F4A3E] rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                         </div>
-                        <h3 class="text-xl font-bold mb-3 text-[#A5FF16]">Tindak Lanjut</h3>
-                        <p class="text-gray-400 leading-relaxed">Terima catatan resmi dari petugas mengenai langkah-langkah penanganan yang sedang dilakukan.</p>
+                        <h3 class="text-lg sm:text-xl font-bold mb-3 text-[#C99A1E]">Tindak Lanjut</h3>
+                        <p class="text-sm sm:text-base text-[#6B7F74]">Terima catatan resmi dari petugas mengenai langkah-langkah penanganan yang sedang dilakukan.</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="relative border-t border-gray-800 bg-gray-900/50 backdrop-blur-sm py-12">
+    <footer class="bg-[#F7FAF8] text-[#2F4A3E] py-10 md:py-12 border-t-4 border-[#F6D365]">
         <div class="container mx-auto px-4 text-center">
-            <p class="mb-4 text-[#FFDF16] font-bold text-lg">Satuan Tugas PPKS UNSOED</p>
-            <p class="text-gray-500">&copy; 2026 Universitas Jenderal Soedirman. Dibuat untuk Proyek PBO.</p>
+            <p class="mb-3 font-bold text-base md:text-lg">
+                <span class="text-[#4F7A63]">Satuan Tugas</span> <span class="text-[#C99A1E]">PPKS UNSOED</span>
+            </p>
+            <p class="text-xs sm:text-sm text-[#6B7F74]">&copy; 2026 Universitas Jenderal Soedirman. Dibuat untuk Proyek PBO.</p>
         </div>
     </footer>
+
+    <script>
+        (function () {
+            var els = document.querySelectorAll('.reveal');
+            if (!('IntersectionObserver' in window)) {
+                els.forEach(function (e) { e.classList.add('show'); });
+                return;
+            }
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (en) {
+                    if (en.isIntersecting) { en.target.classList.add('show'); io.unobserve(en.target); }
+                });
+            }, { threshold: 0.15 });
+            els.forEach(function (e) { io.observe(e); });
+        })();
+    </script>
 </body>
 </html>
